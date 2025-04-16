@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Sign Up | Lab Asset Manager</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="text-end mb-3">
+        <button id="darkModeToggle" class="btn btn-sm btn-outline-secondary">🌙 Dark Mode</button>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 card shadow p-4">
+            <h2 class="text-center mb-4">Sign Up</h2>
+            <form th:action="@{/signup}" th:object="${user}" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input th:field="*{name}" class="form-control" id="name" required/>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input th:field="*{email}" type="email" class="form-control" id="email" required/>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input th:field="*{password}" type="password" class="form-control" id="password" required/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <select th:field="*{role}" class="form-select" required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="ASSISTANT">Assistant</option>
+                        <option value="TECHNICAL_PERSON">Technical Person</option>
+                        <option value="COORDINATOR">Coordinator</option>
+                    </select>
+                </div>
+
+                <div class="text-danger mb-2" th:if="${error}" th:text="${error}"></div>
+
+                <button type="submit" class="btn btn-primary w-100">Create Account</button>
+            </form>
+            <div class="text-center mt-3">
+                Already have an account? <a th:href="@{/login}">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Theme toggle logic
+    document.addEventListener("DOMContentLoaded", function () {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const currentTheme = localStorage.getItem("theme") || (prefersDark ? "dark" : "light");
+        setTheme(currentTheme);
+
+        const toggle = document.getElementById("darkModeToggle");
+        toggle.addEventListener("click", function () {
+            const newTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+            setTheme(newTheme);
+        });
+
+        function setTheme(theme) {
+            if (theme === "dark") {
+                document.body.classList.add("dark-mode");
+                localStorage.setItem("theme", "dark");
+                toggle.innerText = "☀️ Light Mode";
+            } else {
+                document.body.classList.remove("dark-mode");
+                localStorage.setItem("theme", "light");
+                toggle.innerText = "🌙 Dark Mode";
+            }
+        }
+    });
+</script>
+</body>
+</html>

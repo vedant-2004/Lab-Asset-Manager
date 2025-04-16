@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Technical User Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <script src="https://kit.fontawesome.com/a2e0e6f91e.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-light">
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Technical Person Dashboard</h2>
+        <button class="btn btn-dark" id="toggleDarkMode">Toggle Dark Mode</button>
+    </div>
+
+    <div class="mb-3">
+        <select id="labSelector" class="form-select w-auto d-inline me-2">
+            <option value="Lab A">Lab A</option>
+            <option value="Lab B">Lab B</option>
+        </select>
+        <button class="btn btn-primary" onclick="addPcToLab()">Add PC</button>
+    </div>
+
+    <div id="labs">
+        <div class="lab-section mb-4" id="lab-Lab A">
+            <h5>Lab A</h5>
+            <div class="row" id="labAContainer"></div>
+        </div>
+        <div class="lab-section mb-4" id="lab-Lab B">
+            <h5>Lab B</h5>
+            <div class="row" id="labBContainer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let labCounts = { "Lab A": 0, "Lab B": 0 };
+
+    function addPcToLab() {
+        const selectedLab = document.getElementById("labSelector").value;
+        const labContainerId = selectedLab === "Lab A" ? "labAContainer" : "labBContainer";
+        const container = document.getElementById(labContainerId);
+
+        labCounts[selectedLab]++;
+        const pcId = `${selectedLab.replace(/\s/g, '')}-PC${labCounts[selectedLab]}`;
+
+        const pc = document.createElement("div");
+        pc.className = "col-4 col-md-2 pc-card fade-in";
+        pc.innerHTML = `
+            <div class="card text-white bg-primary shadow-sm" onclick="markAsFaulty(this)">
+                <div class="card-body text-center">
+                    <i class="fas fa-laptop fa-2x"></i><br>
+                    <small>${pcId}</small>
+                </div>
+            </div>
+        `;
+        container.appendChild(pc);
+    }
+
+    function markAsFaulty(cardElement) {
+        cardElement.classList.remove("bg-primary");
+        cardElement.classList.add("bg-danger");
+        cardElement.classList.add("deleted");
+    }
+
+    document.getElementById("toggleDarkMode").addEventListener("click", () => {
+        document.body.classList.toggle("bg-dark");
+        document.body.classList.toggle("text-white");
+    });
+</script>
+
+</body>
+</html>

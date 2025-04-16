@@ -1,0 +1,85 @@
+/* ========== GENERAL STYLES ========== */
+body {
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* ========== CARD STYLING ========== */
+.card {
+    border: none;
+    border-radius: 15px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.card h2 {
+    color: #333;
+    font-weight: 600;
+    transition: color 0.4s ease;
+}
+
+/* ========== FORM CONTROLS ========== */
+.form-control, .form-select {
+    border-radius: 8px;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* ========== BUTTONS ========== */
+.btn {
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+}
+
+/* ========== DARK MODE STYLES ========== */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+    color: #e0e0e0;
+}
+
+body.dark-mode .card {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+    border-color: #66b0ff;
+    box-shadow: 0 0 0 0.2rem rgba(102, 176, 255, 0.25);
+}
+
+body.dark-mode .btn-outline-secondary {
+    color: #e0e0e0;
+    border-color: #777;
+}
+
+body.dark-mode a {
+    color: #66b0ff;
+}

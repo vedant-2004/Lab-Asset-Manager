@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assistant Dashboard | Lab Asset Manager</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <script src="https://kit.fontawesome.com/a2e0e6f91e.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-light">
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Assistant Dashboard</h2>
+        <button class="btn btn-dark" id="toggleDarkMode">Toggle Dark Mode</button>
+    </div>
+
+    <div class="mb-3">
+        <button class="btn btn-primary me-2" onclick="addPC()">Add PC</button>
+        <button class="btn btn-danger" onclick="deletePC()">Delete PC</button>
+    </div>
+
+    <h5>Number of PCs: <span id="pcCount">0</span></h5>
+
+    <div class="row mt-4" id="pcContainer">
+        <!-- PCs will be dynamically inserted here -->
+    </div>
+</div>
+
+<script>
+    let pcCount = 0;
+
+    function updateCounter() {
+        document.getElementById("pcCount").textContent = pcCount;
+    }
+
+    function addPC() {
+        pcCount++;
+        updateCounter();
+
+        const pc = document.createElement("div");
+        pc.className = "col-4 col-md-2 pc-card fade-in";
+        pc.innerHTML = `
+            <div class="card text-white bg-primary shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-desktop fa-2x"></i><br>
+                    <small>PC ${pcCount}</small>
+                </div>
+            </div>
+        `;
+        pc.id = `pc-${pcCount}`;
+        document.getElementById("pcContainer").appendChild(pc);
+    }
+
+    function deletePC() {
+        if (pcCount > 0) {
+            const pc = document.getElementById(`pc-${pcCount}`);
+            if (pc) {
+                pc.querySelector(".card").classList.remove("bg-primary");
+                pc.querySelector(".card").classList.add("bg-danger");
+                pc.querySelector(".card").classList.add("deleted");
+            }
+            pcCount--;
+            updateCounter();
+        }
+    }
+
+    // Optional dark mode toggle
+    const toggle = document.getElementById("toggleDarkMode");
+    toggle.addEventListener("click", () => {
+        document.body.classList.toggle("bg-dark");
+        document.body.classList.toggle("text-white");
+    });
+</script>
+
+</body>
+</html>
